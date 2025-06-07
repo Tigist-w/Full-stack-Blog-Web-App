@@ -1,0 +1,86 @@
+<%- include('partials/header', { title: 'Home', user: user }) %>
+
+<!-- Hero Section -->
+<div
+  class="hero-section text-center d-flex align-items-center justify-content-center vh-100 text-white position-relative"
+  style="
+    background-image: url('https://cdn.pixabay.com/photo/2018/05/18/04/00/work-3410295_1280.jpg');
+    background-size: cover;
+    background-position: center;
+  "
+>
+  <div
+    class="position-absolute top-0 start-0 w-100 h-100"
+    style="background-color: rgba(0, 0, 0, 0.6)"
+  ></div>
+  <div class="container position-relative z-2">
+    <h1 class="display-3 fw-bold mb-3 animate__animated animate__fadeInDown">
+      Welcome to Our Blog
+    </h1>
+    <p class="lead mb-4">A place to share your thoughts and ideas</p>
+
+    <% if (user) { %>
+    <p class="mb-4">
+      Hello, <span class="fw-bold text-warning"><%= user.username %></span>!
+      Welcome back!
+    </p>
+    <a class="btn btn-primary btn-lg me-2" href="/user/profile">
+      <i class="fas fa-user"></i> Profile
+    </a>
+    <% } else { %>
+    <p class="mb-4">Please log in or register to continue.</p>
+    <a class="btn btn-primary btn-lg me-2" href="/auth/login">
+      <i class="fas fa-sign-in-alt"></i> Login
+    </a>
+    <a class="btn btn-warning btn-lg" href="/auth/register">
+      <i class="fas fa-user-plus"></i> Register
+    </a>
+    <% } %>
+  </div>
+</div>
+
+<!-- Features Section -->
+<div class="container py-5">
+  <h2 class="text-center fw-bold mb-5">Application Features</h2>
+  <%
+    const features = [
+      { icon: 'fa-lock', color: '#ff6f61', title: 'Authentication', desc: 'Securely access your account with our robust authentication system.' },
+      { icon: 'fa-user-shield', color: '#6a4c93', title: 'Authorization', desc: 'Control who has access to different parts of the site.' },
+      { icon: 'fa-sign-in-alt', color: '#ffa600', title: 'Login', desc: 'Quick and easy login process for returning users.' },
+      { icon: 'fa-sign-out-alt', color: '#ff6f61', title: 'Logout', desc: 'Securely log out of your account to protect your data.' },
+      { icon: 'fa-comments', color: '#6a4c93', title: 'Comments', desc: 'Engage with the community by leaving comments on posts.' },
+      { icon: 'fa-upload', color: '#ffa600', title: 'Multiple File Uploads', desc: 'Easily upload multiple files with our intuitive interface.' }
+    ];
+  %>
+  <div class="row g-4">
+    <% features.forEach(f => { %>
+    <div class="col-md-6 col-lg-4">
+      <div class="card text-center h-100 shadow-sm border-0 hover-effect">
+        <div class="card-body py-4">
+          <i class="fas <%= f.icon %> fa-3x mb-3" style="color: <%= f.color %>"></i>
+          <h5 class="fw-semibold mb-2"><%= f.title %></h5>
+          <p class="text-muted small"><%= f.desc %></p>
+        </div>
+      </div>
+    </div>
+    <% }) %>
+  </div>
+</div>
+
+<%- include('partials/footer') %>
+
+<!-- Additional Styles -->
+<style>
+  .hover-effect {
+    transition: all 0.3s ease-in-out;
+  }
+
+  .hover-effect:hover {
+    box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+  }
+
+  .z-2 {
+    z-index: 2;
+  }
+</style>
